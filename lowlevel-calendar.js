@@ -16,9 +16,10 @@
 		this.today.firstDayOfWeek = options.firstDayOfWeek;
 		this.options.now.firstDayOfWeek = options.firstDayOfWeek;
 		
+		this.currentMonth       = new LowlevelCalendar.Month(this);
 		this.months             = [];
-		this.months.push(new LowlevelCalendar.Month(this, this.options.now))
-		this.currentMonthindex  = 0;
+		this.months.push(this.currentMonth);
+		this.currentMonthIndex  = 0;
 	}
 	
   // An ordered version of options.dayNames.
@@ -37,17 +38,31 @@
 	}
 	
 	LowlevelCalendar.prototype.decrementMonth = function(){
-	  
+    this.options.now.advanceMonths(-1)
+    
+    if (this.currentMonthIndex == 0) {
+       this.currentMonth = new LowlevelCalendar.Month(this);
+       this.months.unshift(this.currentMonth);
+    } else {
+      this.currentMonthIndex--;
+      this.currentMonth = this.months[this.currentMonthIndex];
+    }
 	}
 	
 	LowlevelCalendar.prototype.incrementMonth = function(){
+		this.options.now.advanceMonths(1)
+		this.currentMonthIndex++;
 		
+		if (!this.months[this.currentMonthIndex]) {
+      this.currentMonth = new LowlevelCalendar.Month(this);
+      this.months.push(this.currentMonth);
+		}
 	}
 	
-	LowlevelCalendar.Month = function(calendar, time){
+	LowlevelCalendar.Month = function(calendar){
 		this.calendar   = calendar;
-		this.time       = time.clone();
-		this.today      = time.beginningOfDay();
+		this.time       = calendar.options.now.clone();
+		this.today      = this.time.clone().beginningOfDay();
 		this.cells      = [];
 		
 		this.generateCells();

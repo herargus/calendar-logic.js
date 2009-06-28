@@ -15,7 +15,28 @@ test("Creation of day names", function(){
 });
 
 test("Incrementing and decrementing", function(){
+  c = new LowlevelCalendar({now: new Time(2008, 5, 17)});
   
+  c.incrementMonth();
+  equals(c.months.length, 2);
+  equals(c.currentMonthIndex, 1);
+  equals(c.currentMonth.time.month(), 6);
+  
+  c.incrementMonth();
+  equals(c.months.length, 3);
+  equals(c.currentMonthIndex, 2);
+  equals(c.currentMonth.time.month(), 7);
+  
+  c.decrementMonth();
+  equals(c.months.length, 3);
+  equals(c.currentMonthIndex, 1);
+  equals(c.currentMonth.time.month(), 6);
+  
+  c.decrementMonth()
+  c.decrementMonth()
+  equals(c.months.length, 4);
+  equals(c.currentMonthIndex, 0);
+  equals(c.currentMonth.time.month(), 4);
 });
 
 test("Creation of cells", function(){
