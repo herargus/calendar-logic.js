@@ -1,0 +1,3 @@
+[submodule "vendor/time-dot-js"]
+	path = vendor/time-dot-js
+	url = git://github.com/augustl/time-dot-js.git
