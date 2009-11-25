@@ -2,51 +2,51 @@
   TestCase("JsLowlevelCalendar", {
     "test creation of day names": function () {
       c = new LowlevelCalendar();
-      assertEquals(c.options.dayNames[0], "Sunday");
-      assertEquals(c.options.dayNames[6], "Saturday");
+      assertEquals("Sunday", c.options.dayNames[0]);
+      assertEquals("Saturday", c.options.dayNames[6]);
 
       var c = new LowlevelCalendar({firstDayOfWeek: 2});
-      assertEquals(c.options.dayNames[0], "Monday");
-      assertEquals(c.options.dayNames[6], "Sunday");
+      assertEquals("Monday", c.options.dayNames[0]);
+      assertEquals("Sunday", c.options.dayNames[6]);
 
       var c = new LowlevelCalendar({firstDayOfWeek: 5});
-      assertEquals(c.options.dayNames[0], "Thursday");
-      assertEquals(c.options.dayNames[6], "Wednesday");
+      assertEquals("Thursday", c.options.dayNames[0]);
+      assertEquals("Wednesday", c.options.dayNames[6]);
     },
     
     "test incrementing and decrementing": function () {
       c = new LowlevelCalendar({now: new Time(2008, 5, 17)});
 
       c.incrementMonth();
-      assertEquals(c.months.length, 2);
-      assertEquals(c.currentMonthIndex, 1);
-      assertEquals(c.currentMonth.time.month(), 6);
+      assertEquals(2, c.months.length);
+      assertEquals(1, c.currentMonthIndex);
+      assertEquals(6, c.currentMonth.time.month());
 
       c.incrementMonth();
-      assertEquals(c.months.length, 3);
-      assertEquals(c.currentMonthIndex, 2);
-      assertEquals(c.currentMonth.time.month(), 7);
+      assertEquals(3, c.months.length);
+      assertEquals(2, c.currentMonthIndex);
+      assertEquals(7, c.currentMonth.time.month());
 
       c.decrementMonth();
-      assertEquals(c.months.length, 3);
-      assertEquals(c.currentMonthIndex, 1);
-      assertEquals(c.currentMonth.time.month(), 6);
+      assertEquals(3, c.months.length);
+      assertEquals(1, c.currentMonthIndex);
+      assertEquals(6, c.currentMonth.time.month());
 
       c.decrementMonth()
       c.decrementMonth()
-      assertEquals(c.months.length, 4);
-      assertEquals(c.currentMonthIndex, 0);
-      assertEquals(c.currentMonth.time.month(), 4);
+      assertEquals(4, c.months.length);
+      assertEquals(0, c.currentMonthIndex);
+      assertEquals(4, c.currentMonth.time.month());
     },
     
     "test creation of cells": function () {
       c = new LowlevelCalendar({now: new Time(2008, 5, 17)});
-      assertEquals(c.months[0].cells[0][0].time.epoch(), new Time(2008, 4, 27).epoch());
-      assertEquals(c.months[0].cells[0][4].time.epoch(), new Time(2008, 5, 1).epoch());
+      assertEquals(new Time(2008, 4, 27).epoch(), c.months[0].cells[0][0].time.epoch());
+      assertEquals(new Time(2008, 5, 1).epoch(), c.months[0].cells[0][4].time.epoch());
 
       c = new LowlevelCalendar({now: new Time(2008, 5, 17), firstDayOfWeek: 2});
-      assertEquals(c.months[0].cells[0][0].time.epoch(), new Time(2008, 4, 28).epoch())
-      assertEquals(c.months[0].cells[0][3].time.epoch(), new Time(2008, 5, 1).epoch())
+      assertEquals(new Time(2008, 4, 28).epoch(), c.months[0].cells[0][0].time.epoch())
+      assertEquals(new Time(2008, 5, 1).epoch(), c.months[0].cells[0][3].time.epoch())
     },
     
     "test offdays": function () {
