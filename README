@@ -1,10 +1,3 @@
-      -- ~~ Low Level Javascript Calendar ~~ --
-      
-      In the MVC world, this would be a
-      model. It does not meddle with the
-      DOM, nor does it hook any events.
-      It only provides the basic low level
-      objects needed to render a calendar.
-      
-      Depends on time.js
-      http://github.com/augustl/js-time/tree
+Calendar Logic
+
+Unobtrusive javascript logic for creating calendars. No DOM elements, just raw data structures for you to work with.
