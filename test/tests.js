@@ -68,9 +68,15 @@
     },
     
     "test isToday": function () {
-      c = new LowlevelCalendar({now: new Time()});
-      console.log(c.months[0].cells[2][6].time.year())
-      assertTrue(c.months[0].cells[2][6].isToday);
+      var now = new Time();
+      c = new LowlevelCalendar({now: now});
+      var cellForToday = c.months[0].cells[now.weekOfCurrentMonth() - 1][now.weekday() - 1];
+      
+      // Testing that it is in fact today
+      assertEquals(now.clone().beginningOfDay().epoch(), cellForToday.time.clone().beginningOfDay().epoch())
+      // The actual test
+      assertTrue(cellForToday.isToday);
+      
     }
   });
 }());

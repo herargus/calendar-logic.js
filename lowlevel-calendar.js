@@ -12,7 +12,7 @@
 		this.sortDayNames();
 		this.options.now.beginningOfDay();
 		
-		this.today              = new Time();
+		this.today              = new Time().beginningOfDay();
 		this.today.firstDayOfWeek = options.firstDayOfWeek;
 		this.options.now.firstDayOfWeek = options.firstDayOfWeek;
 		
