@@ -39,6 +39,28 @@
       assertEquals(4, c.currentMonth.time.month());
     },
     
+    "test rotating day names based on firstDayOfWeek option": function () {
+      var baseDayNames = new CalendarLogic().options.dayNames;
+      
+      var c = new CalendarLogic({firstDayOfWeek: 2});
+      assertEquals(baseDayNames[1], c.options.dayNames[0]);
+      assertEquals(baseDayNames[0], c.options.dayNames[6]);
+      
+      var c = new CalendarLogic({firstDayOfWeek: 5});
+      assertEquals(baseDayNames[4], c.options.dayNames[0]);
+      assertEquals(baseDayNames[3], c.options.dayNames[6]);
+    },
+    
+    "test custom day names and custom first day of week": function () {
+      var c = new CalendarLogic({
+        firstDayOfWeek: 2,
+        dayNames: ["Søndag", "Mandag", "3", "4", "5", "6", "7"]
+      });
+      
+      assertEquals("Mandag", c.options.dayNames[0]);
+      assertEquals("Søndag", c.options.dayNames[6]);
+    },
+    
     "test creation of cells": function () {
       c = new CalendarLogic({now: new Time(2008, 5, 17)});
       assertEquals(new Time(2008, 4, 27).epoch(), c.months[0].cells[0][0].time.epoch());
