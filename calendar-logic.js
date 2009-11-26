@@ -3,6 +3,7 @@
 		options 								= options || {};
 		options.now							= options.now || new Time();
 		options.firstDayOfWeek 	= options.firstDayOfWeek || 1;
+		options.cellCallback    = options.cellCallback || function () {};
 		options.monthNames 			= options.monthNames ||
 															["January", "February", "March", "April", "May", "June",
 															"July", "August", "September", "October", "November", "December"];
@@ -79,7 +80,9 @@
 			var day             = 0;
 			
 			while (day < 7) {
-				var cell = new CalendarLogic.Month.Cell(this, timeInstance.advanceDays(1));
+			  timeInstance.advanceDays(1);
+				var cell = new CalendarLogic.Month.Cell(this, timeInstance);
+				this.calendar.options.cellCallback(timeInstance);
 				cellsThisWeek.push(cell);
 				day++;
 			}

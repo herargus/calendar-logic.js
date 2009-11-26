@@ -39,6 +39,26 @@
       assertEquals(4, c.currentMonth.time.month());
     },
     
+    "test cell callback being called": function () {
+      var cellCallbackTimesCalled = 0;
+      var timeInstance;
+      
+      
+      new CalendarLogic({
+        now: new Time(2008, 11, 1),
+        cellCallback: function (time) {
+          cellCallbackTimesCalled++;
+          timeInstance = time;
+        }
+      });
+      
+      var daysInNovember2008 = 30;
+      var offdaysNovember2008WithSundayAsFirstDay = 12; // sun-fri before sat 1st, mon-sat after sun 30th
+      assertEquals(daysInNovember2008 + offdaysNovember2008WithSundayAsFirstDay, cellCallbackTimesCalled);
+      // Just testing that it's there, basically.
+      assertEquals(new Time(2008, 12, 6).epoch(), timeInstance.beginningOfDay().epoch());
+    },
+    
     "test rotating day names based on firstDayOfWeek option": function () {
       var baseDayNames = new CalendarLogic().options.dayNames;
       
