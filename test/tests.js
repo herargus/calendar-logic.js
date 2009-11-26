@@ -43,8 +43,7 @@
       var cellCallbackTimesCalled = 0;
       var timeInstance;
       
-      
-      new CalendarLogic({
+      var cal = new CalendarLogic({
         now: new Time(2008, 11, 1),
         cellCallback: function (time) {
           cellCallbackTimesCalled++;
@@ -52,11 +51,20 @@
         }
       });
       
-      var daysInNovember2008 = 30;
-      var offdaysNovember2008WithSundayAsFirstDay = 12; // sun-fri before sat 1st, mon-sat after sun 30th
-      assertEquals(daysInNovember2008 + offdaysNovember2008WithSundayAsFirstDay, cellCallbackTimesCalled);
+      var calendarDaysInNovember2008 = 30 + 12;
+      assertEquals(calendarDaysInNovember2008, cellCallbackTimesCalled);
       // Just testing that it's there, basically.
       assertEquals(new Time(2008, 12, 6).epoch(), timeInstance.beginningOfDay().epoch());
+      
+      // Making sure the callback is called when changing months as well
+      cal.incrementMonth();
+      var calendarDaysInDecember2008 = 31 + 4;
+      assertEquals(calendarDaysInNovember2008 + calendarDaysInDecember2008, cellCallbackTimesCalled);
+      
+      // The callback is only called when cells are created - going back to existing
+      // month won't call the callback.
+      cal.decrementMonth();
+      assertEquals(calendarDaysInNovember2008 + calendarDaysInDecember2008, cellCallbackTimesCalled);
     },
     
     "test rotating day names based on firstDayOfWeek option": function () {
