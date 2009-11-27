@@ -100,9 +100,5 @@
 		this.isToday    = month.calendar.today.epoch() == time.epoch();
 	}
 	
-	CalendarLogic.weeek = function() {
-	  // Gief!
-	}
-	
 	window.CalendarLogic = CalendarLogic;
 })();
