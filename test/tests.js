@@ -39,32 +39,32 @@
       assertEquals(4, c.currentMonth().time.month());
     },
     
-    "test cell callback being called": function () {
-      var cellCallbackTimesCalled = 0;
+    "test day callback being called": function () {
+      var dayCallbackTimesCalled = 0;
       var timeInstance;
       
       var cal = new CalendarLogic({
         now: new Time(2008, 11, 1),
-        cellCallback: function (time) {
-          cellCallbackTimesCalled++;
+        dayCallback: function (time) {
+          dayCallbackTimesCalled++;
           timeInstance = time;
         }
       });
       
       var calendarDaysInNovember2008 = 30 + 12;
-      assertEquals(calendarDaysInNovember2008, cellCallbackTimesCalled);
+      assertEquals(calendarDaysInNovember2008, dayCallbackTimesCalled);
       // Just testing that it's there, basically.
       assertEquals(new Time(2008, 12, 6).epoch(), timeInstance.beginningOfDay().epoch());
       
       // Making sure the callback is called when changing months as well
       cal.incrementMonth();
       var calendarDaysInDecember2008 = 31 + 4;
-      assertEquals(calendarDaysInNovember2008 + calendarDaysInDecember2008, cellCallbackTimesCalled);
+      assertEquals(calendarDaysInNovember2008 + calendarDaysInDecember2008, dayCallbackTimesCalled);
       
-      // The callback is only called when cells are created - going back to existing
+      // The callback is only called when days are created - going back to existing
       // month won't call the callback.
       cal.decrementMonth();
-      assertEquals(calendarDaysInNovember2008 + calendarDaysInDecember2008, cellCallbackTimesCalled);
+      assertEquals(calendarDaysInNovember2008 + calendarDaysInDecember2008, dayCallbackTimesCalled);
     },
     
     "test rotating day names based on firstDayOfWeek option": function () {
@@ -89,43 +89,43 @@
       assertEquals("Søndag", c.options.dayNames[6]);
     },
     
-    "test creation of cells": function () {
+    "test creation of days": function () {
       c = new CalendarLogic({now: new Time(2008, 5, 17)});
-      assertEquals(new Time(2008, 4, 27).epoch(), c.months[0].cells[0][0].time.epoch());
-      assertEquals(new Time(2008, 5, 1).epoch(), c.months[0].cells[0][4].time.epoch());
+      assertEquals(new Time(2008, 4, 27).epoch(), c.months[0].days[0][0].time.epoch());
+      assertEquals(new Time(2008, 5, 1).epoch(), c.months[0].days[0][4].time.epoch());
 
       c = new CalendarLogic({now: new Time(2008, 5, 17), firstDayOfWeek: 2});
-      assertEquals(new Time(2008, 4, 28).epoch(), c.months[0].cells[0][0].time.epoch())
-      assertEquals(new Time(2008, 5, 1).epoch(), c.months[0].cells[0][3].time.epoch())
+      assertEquals(new Time(2008, 4, 28).epoch(), c.months[0].days[0][0].time.epoch())
+      assertEquals(new Time(2008, 5, 1).epoch(), c.months[0].days[0][3].time.epoch())
     },
     
     "test offdays": function () {
       c = new CalendarLogic({now: new Time(2008, 5, 17)});
       m = c.months[0];
-      assertTrue(c.months[0].cells[0][0].isOffday)
-      assertTrue(c.months[0].cells[0][1].isOffday)
-      assertTrue(c.months[0].cells[0][2].isOffday)
-      assertTrue(c.months[0].cells[0][3].isOffday)
-      assertFalse(c.months[0].cells[0][4].isOffday)
+      assertTrue(c.months[0].days[0][0].isOffday)
+      assertTrue(c.months[0].days[0][1].isOffday)
+      assertTrue(c.months[0].days[0][2].isOffday)
+      assertTrue(c.months[0].days[0][3].isOffday)
+      assertFalse(c.months[0].days[0][4].isOffday)
 
       c = new CalendarLogic({now: new Time(2008, 5, 17), firstDayOfWeek: 2})
       m = c.months[0];
 
-      assertTrue(c.months[0].cells[0][0].isOffday)
-      assertTrue(c.months[0].cells[0][1].isOffday)
-      assertTrue(c.months[0].cells[0][2].isOffday)
-      assertFalse(c.months[0].cells[0][3].isOffday)
+      assertTrue(c.months[0].days[0][0].isOffday)
+      assertTrue(c.months[0].days[0][1].isOffday)
+      assertTrue(c.months[0].days[0][2].isOffday)
+      assertFalse(c.months[0].days[0][3].isOffday)
     },
     
     "test isToday": function () {
       var now = new Time();
       c = new CalendarLogic({now: now});
-      var cellForToday = c.months[0].cells[now.weekOfCurrentMonth() - 1][now.weekday() - 1];
+      var dayForToday = c.months[0].days[now.weekOfCurrentMonth() - 1][now.weekday() - 1];
       
       // Testing that it is in fact today
-      assertEquals(now.clone().beginningOfDay().epoch(), cellForToday.time.clone().beginningOfDay().epoch())
+      assertEquals(now.clone().beginningOfDay().epoch(), dayForToday.time.clone().beginningOfDay().epoch())
       // The actual test
-      assertTrue(cellForToday.isToday);
+      assertTrue(dayForToday.isToday);
       
     }
   });

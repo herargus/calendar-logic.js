@@ -3,7 +3,7 @@
 		options 								= options || {};
 		options.now							= options.now || new Time();
 		options.firstDayOfWeek 	= options.firstDayOfWeek || 1;
-		options.cellCallback    = options.cellCallback || function () {};
+		options.dayCallback     = options.dayCallback || function () {};
 		options.monthNames 			= options.monthNames ||
 															["January", "February", "March", "April", "May", "June",
 															"July", "August", "September", "October", "November", "December"];
@@ -65,36 +65,36 @@
 		this.calendar   = calendar;
 		this.time       = calendar.options.now.clone();
 		this.today      = this.time.clone().beginningOfDay();
-		this.cells      = [];
+		this.days      = [];
 		
-		this.generateCells();
+		this.generateDays();
 	}
 	
 	CalendarLogic.Month.prototype = {
-	  generateCells: function () {
+	  generateDays: function () {
 	    var week          = 0;
   		var timeInstance  = this.time.clone().firstDayInCalendarMonth()
   		timeInstance.advanceDays(-1);
 
   		var weeksInMonth = this.time.weeksInMonth()
   		while (week < weeksInMonth) {
-  			var cellsThisWeek   = [];
-  			var day             = 0;
+  			var daysThisWeek   = [];
+  			var currentDay     = 0;
 
-  			while (day < 7) {
+  			while (currentDay < 7) {
   			  timeInstance.advanceDays(1);
-  				var cell = new CalendarLogic.Month.Cell(this, timeInstance);
-  				this.calendar.options.cellCallback(timeInstance);
-  				cellsThisWeek.push(cell);
-  				day++;
+  				var day = new CalendarLogic.Month.Day(this, timeInstance);
+  				this.calendar.options.dayCallback(timeInstance);
+  				daysThisWeek.push(day);
+  				currentDay++;
   			}
-  			this.cells.push(cellsThisWeek);
+  			this.days.push(daysThisWeek);
   			week++;
   		}
 	  }
 	}
 	
-	CalendarLogic.Month.Cell = function(month, time){
+	CalendarLogic.Month.Day = function(month, time){
 	  this.time       = time.clone();
 		this.isOffday   = month.time.month() != time.month();
 		this.isToday    = month.calendar.today.epoch() == time.epoch();
