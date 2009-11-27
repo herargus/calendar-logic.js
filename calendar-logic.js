@@ -51,7 +51,7 @@
 	  },
 	  
 	  decrementMonth: function () {
-	    this.options.now.advanceMonths(-1)
+	    this.options.now.advanceMonths(-1);
 	    
 	    if (this.currentMonthIndex == 0) {
 	      this.months.unshift(new CalendarLogic.Month(this));
@@ -71,10 +71,13 @@
 	  generateDays: function () {
 	    var days          = [];
 	    var week          = 0;
-  		var timeInstance  = this.time.clone().firstDayInCalendarMonth()
+	    var weeksInMonth  = this.calendar.options.now.weeksInMonth();
+  		var timeInstance  = this.calendar.options.now.clone().firstDayInCalendarMonth().beginningOfDay();
+  		// Starting on -1 so that the loop can increment the day
+  		// before the timeInstance is passed anywhere, making sure
+  		// timeInstance isn't mutated after it has been sent away.
   		timeInstance.advanceDays(-1);
-
-  		var weeksInMonth = this.time.weeksInMonth()
+  		
   		while (week < weeksInMonth) {
   			var daysThisWeek   = [];
   			var currentDay     = 0;
