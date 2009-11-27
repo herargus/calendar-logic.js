@@ -18,15 +18,17 @@
 		this.today              = new Time().beginningOfDay();
 		this.today.firstDayOfWeek = options.firstDayOfWeek;
 		this.options.now.firstDayOfWeek = options.firstDayOfWeek;
-		
-		this.months             = [];
-		this.months.push(new CalendarLogic.Month(this));
-		this.currentMonthIndex  = 0;
-		
-		this.options.monthChanged(this.currentMonth());
 	}
 	
 	CalendarLogic.prototype = {
+	  createFirstMonth: function () {
+	    this.months             = [];
+  		this.months.push(new CalendarLogic.Month(this));
+  		this.currentMonthIndex  = 0;
+
+  		this.options.monthChanged(this.currentMonth());
+	  },
+	  
 	  sortDayNames: function () {
 	    var tail      = [];
   		var counter   = this.options.firstDayOfWeek;

@@ -16,6 +16,7 @@
     
     "test incrementing and decrementing": function () {
       c = new CalendarLogic({now: new Time(2008, 5, 17)});
+      c.createFirstMonth();
 
       c.incrementMonth();
       assertEquals(2, c.months.length);
@@ -50,6 +51,7 @@
           timeInstance = time;
         }
       });
+      cal.createFirstMonth();
       
       var calendarDaysInNovember2008 = 30 + 12;
       assertEquals(calendarDaysInNovember2008, dayCreatedTimesCalled);
@@ -80,6 +82,7 @@
           monthChangedTimesCalled++;
         }
       });
+      cal.createFirstMonth();
       
       assertEquals(1, monthCreatedTimesCalled);
       assertEquals(1, monthChangedTimesCalled);
@@ -130,16 +133,19 @@
     
     "test creation of days": function () {
       c = new CalendarLogic({now: new Time(2008, 5, 17)});
+      c.createFirstMonth();
       assertEquals(new Time(2008, 4, 27).epoch(), c.months[0].days[0][0].time.epoch());
       assertEquals(new Time(2008, 5, 1).epoch(), c.months[0].days[0][4].time.epoch());
 
       c = new CalendarLogic({now: new Time(2008, 5, 17), firstDayOfWeek: 2});
+      c.createFirstMonth();
       assertEquals(new Time(2008, 4, 28).epoch(), c.months[0].days[0][0].time.epoch())
       assertEquals(new Time(2008, 5, 1).epoch(), c.months[0].days[0][3].time.epoch())
     },
     
     "test offdays": function () {
       c = new CalendarLogic({now: new Time(2008, 5, 17)});
+      c.createFirstMonth();
       m = c.months[0];
       assertTrue(c.months[0].days[0][0].isOffday)
       assertTrue(c.months[0].days[0][1].isOffday)
@@ -148,6 +154,7 @@
       assertFalse(c.months[0].days[0][4].isOffday)
 
       c = new CalendarLogic({now: new Time(2008, 5, 17), firstDayOfWeek: 2})
+      c.createFirstMonth();
       m = c.months[0];
 
       assertTrue(c.months[0].days[0][0].isOffday)
@@ -159,6 +166,7 @@
     "test isToday": function () {
       var now = new Time();
       c = new CalendarLogic({now: now});
+      c.createFirstMonth();
       var dayForToday = c.months[0].days[now.weekOfCurrentMonth() - 1][now.weekday() - 1];
       
       // Testing that it is in fact today
