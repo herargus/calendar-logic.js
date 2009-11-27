@@ -64,7 +64,6 @@
 	CalendarLogic.Month = function(calendar){
 		this.calendar   = calendar;
 		this.time       = calendar.options.now.clone();
-		this.today      = this.time.clone().beginningOfDay();
 		this.days       = this.generateDays();
 	}
 	
