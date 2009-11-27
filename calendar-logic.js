@@ -65,13 +65,12 @@
 		this.calendar   = calendar;
 		this.time       = calendar.options.now.clone();
 		this.today      = this.time.clone().beginningOfDay();
-		this.days      = [];
-		
-		this.generateDays();
+		this.days       = this.generateDays();
 	}
 	
 	CalendarLogic.Month.prototype = {
 	  generateDays: function () {
+	    var days          = [];
 	    var week          = 0;
   		var timeInstance  = this.time.clone().firstDayInCalendarMonth()
   		timeInstance.advanceDays(-1);
@@ -88,9 +87,11 @@
   				daysThisWeek.push(day);
   				currentDay++;
   			}
-  			this.days.push(daysThisWeek);
+  			days.push(daysThisWeek);
   			week++;
   		}
+  		
+  		return days;
 	  }
 	}
 	
