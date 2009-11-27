@@ -40,31 +40,31 @@
     },
     
     "test day callback being called": function () {
-      var dayCallbackTimesCalled = 0;
+      var dayCreatedTimesCalled = 0;
       var timeInstance;
       
       var cal = new CalendarLogic({
         now: new Time(2008, 11, 1),
-        dayCallback: function (time) {
-          dayCallbackTimesCalled++;
+        dayCreated: function (time) {
+          dayCreatedTimesCalled++;
           timeInstance = time;
         }
       });
       
       var calendarDaysInNovember2008 = 30 + 12;
-      assertEquals(calendarDaysInNovember2008, dayCallbackTimesCalled);
+      assertEquals(calendarDaysInNovember2008, dayCreatedTimesCalled);
       // Just testing that it's there, basically.
       assertEquals(new Time(2008, 12, 6).epoch(), timeInstance.beginningOfDay().epoch());
       
       // Making sure the callback is called when changing months as well
       cal.incrementMonth();
       var calendarDaysInDecember2008 = 31 + 4;
-      assertEquals(calendarDaysInNovember2008 + calendarDaysInDecember2008, dayCallbackTimesCalled);
+      assertEquals(calendarDaysInNovember2008 + calendarDaysInDecember2008, dayCreatedTimesCalled);
       
       // The callback is only called when days are created - going back to existing
       // month won't call the callback.
       cal.decrementMonth();
-      assertEquals(calendarDaysInNovember2008 + calendarDaysInDecember2008, dayCallbackTimesCalled);
+      assertEquals(calendarDaysInNovember2008 + calendarDaysInDecember2008, dayCreatedTimesCalled);
     },
     
     "test month created and month changed callback being called": function () {

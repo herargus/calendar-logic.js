@@ -3,7 +3,7 @@
 		options 								= options || {};
 		options.now							= options.now || new Time();
 		options.firstDayOfWeek 	= options.firstDayOfWeek || 1;
-		options.dayCallback     = options.dayCallback || function () {};
+		options.dayCreated      = options.dayCreated || function () {};
 		options.monthCreated    = options.monthCreated || function () {};
 		options.monthChanged    = options.monthChanged || function () {};
 		options.monthNames 			= options.monthNames ||
@@ -95,7 +95,7 @@
   			while (currentDay < 7) {
   			  timeInstance.advanceDays(1);
   				var day = new CalendarLogic.Month.Day(this, timeInstance);
-  				this.calendar.options.dayCallback(timeInstance);
+  				this.calendar.options.dayCreated(timeInstance);
   				daysThisWeek.push(day);
   				currentDay++;
   			}
