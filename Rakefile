@@ -9,6 +9,6 @@ namespace :test do
   end
   
   task :autotest do
-    exec "jsautotest --config test/jsTestDriver.conf"
+    exec "jsautotest --config test/jsTestDriver.conf --reset"
   end
 end
