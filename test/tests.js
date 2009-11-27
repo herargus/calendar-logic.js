@@ -67,6 +67,45 @@
       assertEquals(calendarDaysInNovember2008 + calendarDaysInDecember2008, dayCallbackTimesCalled);
     },
     
+    "test month created and month changed callback being called": function () {
+      var monthCreatedTimesCalled = 0;
+      var monthChangedTimesCalled = 0;
+      
+      var cal = new CalendarLogic({
+        now: new Time(2008, 11, 1),
+        monthCreated: function () {
+          monthCreatedTimesCalled++;
+        },
+        monthChanged: function () {
+          monthChangedTimesCalled++;
+        }
+      });
+      
+      assertEquals(1, monthCreatedTimesCalled);
+      assertEquals(1, monthChangedTimesCalled);
+      
+      cal.incrementMonth();
+      assertEquals(2, monthCreatedTimesCalled);
+      assertEquals(2, monthChangedTimesCalled);
+      
+      cal.incrementMonth();
+      assertEquals(3, monthCreatedTimesCalled);
+      assertEquals(3, monthChangedTimesCalled);
+      
+      cal.decrementMonth();
+      cal.decrementMonth();
+      assertEquals(3, monthCreatedTimesCalled);
+      assertEquals(5, monthChangedTimesCalled);
+      
+      cal.decrementMonth();
+      assertEquals(4, monthCreatedTimesCalled);
+      assertEquals(6, monthChangedTimesCalled);
+      
+      cal.decrementMonth();
+      assertEquals(5, monthCreatedTimesCalled);
+      assertEquals(7, monthChangedTimesCalled);
+    },
+    
     "test rotating day names based on firstDayOfWeek option": function () {
       var baseDayNames = new CalendarLogic().options.dayNames;
       

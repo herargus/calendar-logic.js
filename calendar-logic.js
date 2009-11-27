@@ -4,6 +4,8 @@
 		options.now							= options.now || new Time();
 		options.firstDayOfWeek 	= options.firstDayOfWeek || 1;
 		options.dayCallback     = options.dayCallback || function () {};
+		options.monthCreated    = options.monthCreated || function () {};
+		options.monthChanged    = options.monthChanged || function () {};
 		options.monthNames 			= options.monthNames ||
 															["January", "February", "March", "April", "May", "June",
 															"July", "August", "September", "October", "November", "December"];
@@ -20,6 +22,8 @@
 		this.months             = [];
 		this.months.push(new CalendarLogic.Month(this));
 		this.currentMonthIndex  = 0;
+		
+		this.options.monthChanged(this.currentMonth());
 	}
 	
 	CalendarLogic.prototype = {
@@ -48,6 +52,8 @@
   		if (!this.months[this.currentMonthIndex]) {
   		  this.months.push(new CalendarLogic.Month(this));
   		}
+  		
+  		this.options.monthChanged(this.currentMonth());
 	  },
 	  
 	  decrementMonth: function () {
@@ -58,6 +64,8 @@
 	    } else {
 	      this.currentMonthIndex--;
 	    }
+	    
+	    this.options.monthChanged(this.currentMonth());
 	  },
 	}
 	
@@ -65,6 +73,8 @@
 		this.calendar   = calendar;
 		this.time       = calendar.options.now.clone();
 		this.days       = this.generateDays();
+		
+		calendar.options.monthCreated(this);
 	}
 	
 	CalendarLogic.Month.prototype = {
