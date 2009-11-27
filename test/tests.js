@@ -20,23 +20,23 @@
       c.incrementMonth();
       assertEquals(2, c.months.length);
       assertEquals(1, c.currentMonthIndex);
-      assertEquals(6, c.currentMonth.time.month());
+      assertEquals(6, c.currentMonth().time.month());
 
       c.incrementMonth();
       assertEquals(3, c.months.length);
       assertEquals(2, c.currentMonthIndex);
-      assertEquals(7, c.currentMonth.time.month());
+      assertEquals(7, c.currentMonth().time.month());
 
       c.decrementMonth();
       assertEquals(3, c.months.length);
       assertEquals(1, c.currentMonthIndex);
-      assertEquals(6, c.currentMonth.time.month());
+      assertEquals(6, c.currentMonth().time.month());
 
       c.decrementMonth()
       c.decrementMonth()
       assertEquals(4, c.months.length);
       assertEquals(0, c.currentMonthIndex);
-      assertEquals(4, c.currentMonth.time.month());
+      assertEquals(4, c.currentMonth().time.month());
     },
     
     "test cell callback being called": function () {

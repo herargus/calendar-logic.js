@@ -17,9 +17,8 @@
 		this.today.firstDayOfWeek = options.firstDayOfWeek;
 		this.options.now.firstDayOfWeek = options.firstDayOfWeek;
 		
-		this.currentMonth       = new CalendarLogic.Month(this);
 		this.months             = [];
-		this.months.push(this.currentMonth);
+		this.months.push(new CalendarLogic.Month(this));
 		this.currentMonthIndex  = 0;
 	}
 	
@@ -38,27 +37,28 @@
       }
 	  },
 	  
-	  decrementMonth: function () {
-	    this.options.now.advanceMonths(-1)
-
-      if (this.currentMonthIndex == 0) {
-         this.currentMonth = new CalendarLogic.Month(this);
-         this.months.unshift(this.currentMonth);
-      } else {
-        this.currentMonthIndex--;
-        this.currentMonth = this.months[this.currentMonthIndex];
-      }
+	  currentMonth: function () {
+	    return this.months[this.currentMonthIndex];
 	  },
 	  
 	  incrementMonth: function () {
-	    this.options.now.advanceMonths(1)
+	    this.options.now.advanceMonths(1);
   		this.currentMonthIndex++;
-
+  		
   		if (!this.months[this.currentMonthIndex]) {
-        this.currentMonth = new CalendarLogic.Month(this);
-        this.months.push(this.currentMonth);
+  		  this.months.push(new CalendarLogic.Month(this));
   		}
-	  }
+	  },
+	  
+	  decrementMonth: function () {
+	    this.options.now.advanceMonths(-1)
+	    
+	    if (this.currentMonthIndex == 0) {
+	      this.months.unshift(new CalendarLogic.Month(this));
+	    } else {
+	      this.currentMonthIndex--;
+	    }
+	  },
 	}
 	
 	CalendarLogic.Month = function(calendar){
