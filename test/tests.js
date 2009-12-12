@@ -5,11 +5,11 @@
       assertEquals("Sunday", c.options.dayNames[0]);
       assertEquals("Saturday", c.options.dayNames[6]);
 
-      var c = new CalendarLogic({firstDayOfWeek: 2});
+      var c = new CalendarLogic({firstDayOfWeek: 1});
       assertEquals("Monday", c.options.dayNames[0]);
       assertEquals("Sunday", c.options.dayNames[6]);
 
-      var c = new CalendarLogic({firstDayOfWeek: 5});
+      var c = new CalendarLogic({firstDayOfWeek: 4});
       assertEquals("Thursday", c.options.dayNames[0]);
       assertEquals("Wednesday", c.options.dayNames[6]);
     },
@@ -112,18 +112,18 @@
     "test rotating day names based on firstDayOfWeek option": function () {
       var baseDayNames = new CalendarLogic().options.dayNames;
       
-      var c = new CalendarLogic({firstDayOfWeek: 2});
+      var c = new CalendarLogic({firstDayOfWeek: 1});
       assertEquals(baseDayNames[1], c.options.dayNames[0]);
       assertEquals(baseDayNames[0], c.options.dayNames[6]);
       
-      var c = new CalendarLogic({firstDayOfWeek: 5});
+      var c = new CalendarLogic({firstDayOfWeek: 4});
       assertEquals(baseDayNames[4], c.options.dayNames[0]);
       assertEquals(baseDayNames[3], c.options.dayNames[6]);
     },
     
     "test custom day names and custom first day of week": function () {
       var c = new CalendarLogic({
-        firstDayOfWeek: 2,
+        firstDayOfWeek: 1,
         dayNames: ["Søndag", "Mandag", "3", "4", "5", "6", "7"]
       });
       
@@ -137,7 +137,7 @@
       assertEquals(new Time(2008, 4, 27).epoch(), c.months[0].days[0][0].time.epoch());
       assertEquals(new Time(2008, 5, 1).epoch(), c.months[0].days[0][4].time.epoch());
 
-      c = new CalendarLogic({now: new Time(2008, 5, 17), firstDayOfWeek: 2});
+      c = new CalendarLogic({now: new Time(2008, 5, 17), firstDayOfWeek: 1});
       c.createFirstMonth();
       assertEquals(new Time(2008, 4, 28).epoch(), c.months[0].days[0][0].time.epoch())
       assertEquals(new Time(2008, 5, 1).epoch(), c.months[0].days[0][3].time.epoch())
@@ -153,7 +153,7 @@
       assertTrue(c.months[0].days[0][3].isOffday)
       assertFalse(c.months[0].days[0][4].isOffday)
 
-      c = new CalendarLogic({now: new Time(2008, 5, 17), firstDayOfWeek: 2})
+      c = new CalendarLogic({now: new Time(2008, 5, 17), firstDayOfWeek: 1})
       c.createFirstMonth();
       m = c.months[0];
 

@@ -2,7 +2,7 @@
   var CalendarLogic = function(options){
     options                           = options || {};
     options.now                       = options.now || new Time();
-    options.firstDayOfWeek            = options.firstDayOfWeek || 1;
+    options.firstDayOfWeek            = options.firstDayOfWeek || 0;
     options.dayCreated                = options.dayCreated || function () {};
     options.monthCreated              = options.monthCreated || function () {};
     options.monthChanged              = options.monthChanged || function () {};
@@ -33,7 +33,7 @@
       var tail = [];
       var counter = this.options.firstDayOfWeek;
 
-      while (counter > 1) {
+      while (counter > 0) {
         tail.push(this.options.dayNames.shift());
         counter--;
       }
