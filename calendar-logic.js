@@ -128,7 +128,7 @@
         isOffday = this.monthCalendar.now.month() != cell.time.month();
         isToday  = this.monthCalendar.today.epoch() == cell.time.epoch();
         
-        this.monthCalendar.delegate.renderCell(cell.cell, isOffday, isToday);
+        this.monthCalendar.delegate.renderCell(cell.cell, isOffday, isToday, cell.time);
       }
     }
   }
