@@ -99,20 +99,18 @@
 
       this.renderMonth();
       
-      timeInstance.advanceDays(-1);
       month = [];
 
       weekNum = 0;
       while (weekNum < weeksInMonth) {
-        week = this.monthCalendar.delegate.createWeek(this.month.delegateResult, this.month.time);
+        week = this.monthCalendar.delegate.createWeek(this.month.delegateResult, timeInstance);
         currentDay = 0;
 
         while (currentDay < 7) {
-          timeInstance.advanceDays(1);
-
           var cell = this.monthCalendar.delegate.createCell(week, timeInstance.clone());
           this.cells.push({cell: cell, time: timeInstance.clone()});
           currentDay++;
+          timeInstance.advanceDays(1);
         }
 
         weekNum++;
